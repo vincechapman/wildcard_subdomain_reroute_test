@@ -2,5 +2,10 @@ import {NextResponse} from "next/server";
 import type {NextRequest} from "next/server";
 
 export default function middleware(request: NextRequest) {
-    return NextResponse.json(new URL(request.url).hostname.split(".")[0]);
+    const url = new URL(request.url)
+    // return NextResponse.next()
+    return NextResponse.json({
+        subdomain: url.hostname.split(".")[0],
+        path: url.pathname
+    });
 }
