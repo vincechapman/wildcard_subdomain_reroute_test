@@ -3,9 +3,7 @@ import type {NextRequest} from "next/server";
 
 export default function middleware(request: NextRequest) {
     const url = new URL(request.url)
-    // return NextResponse.next()
-    return NextResponse.json({
-        subdomain: url.hostname.split(".")[0],
-        path: url.pathname
-    });
+    const subdomain = url.hostname.split(".")[0]
+    const path = url.pathname
+    return NextResponse.rewrite(new URL(`/${subdomain + path}`))
 }
