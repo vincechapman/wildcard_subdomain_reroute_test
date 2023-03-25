@@ -3,7 +3,7 @@ import type {NextRequest} from "next/server";
 
 export default function middleware(request: NextRequest) {
     const url = new URL(request.url)
-    const hostname = url.hostname.split(".")
+    let hostname = url.hostname.split(".")
     const path = url.pathname
 
     if (hostname.length <= 1) {
@@ -11,7 +11,7 @@ export default function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
-    hostname.pop() // Removing main domain from hostname
+    hostname = hostname.slice(0, -1)
     hostname.reverse()  // Reversing the order of remaining subdomains
     const subdomain = "/" + hostname.join("/")
 
