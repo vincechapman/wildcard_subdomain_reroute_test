@@ -26,9 +26,9 @@ export default function middleware(request: NextRequest) {
     }
 
 
-    return NextResponse.json({
-        url: request.url,
-        redirect: new URL(subdomain + path, request.url)
-    })
+    // return NextResponse.json({
+    //     url: request.url,
+    //     redirect: new URL(subdomain + path, request.url)
+    // })
     return NextResponse.rewrite(new URL(subdomain + path, request.url))
 }
